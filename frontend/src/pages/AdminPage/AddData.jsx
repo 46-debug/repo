@@ -9,7 +9,7 @@ const AddData = () => {
     description: "",
     price: "",
     availableDates: new Date(),
-    images: [""], // Initialize with one empty input for the first image URL
+    images: [""],
   });
 
   // Handle input changes
@@ -68,19 +68,19 @@ const AddData = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center flex-start gap-5 m-5">
+      <div className="flex flex-col justify-center items-center flex-start">
         <button
-          className="bg-green-500 text-white px-5 py-2 w-full"
+          className="bg-green-500 text-white w-full max-w-96 px-5 py-2 "
           onClick={() => setHight("100%")}
         >
           + Add Packages
         </button>
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-lg p-1 bg-white overflow-hidden"
+          className="w-full max-w-lg bg-white overflow-hidden p-1"
           style={{ height: hight }}
         >
-          <h2 className="text-2xl font-bold mb-6 text-center text-gray-700">
+          <h2 className="text-2xl font-bold my-2 text-center text-gray-700">
             Submit Your Details
           </h2>
 
