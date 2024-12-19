@@ -93,6 +93,27 @@ app.get("/api/form/:id", async (req, res) => {
   }
 });
 
+app.get("/api/paxInfo", async (req, res) => {
+  try {
+    const data = await paxData.find(); // Correct model
+    res.status(200).json(data);
+  } catch (err) {
+    console.error("Error fetching pax data:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.get("/api/paxInfo/:id", async (req, res) => {
+  try {
+    const data = await paxData.findById(req.params.id);
+    if (!data) {
+      return res.status(404).json({ message: "Item not found" });
+    }
+    res.json(data); // Correct variable
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 // Start Server
 app.listen(PORT, () => {

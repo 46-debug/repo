@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import AddData from "./AddData";
 import DeleteData from "./DeleteData";
 import UpdateData from "./UpdateData";
+import Bookings from "./Bookings";
 
 // Success Component to render when credentials are correct
 const SuccessComponent = () => {
   return (
-    <div className="flex gap-5 flex-col">
+    <div className="flex flex-col gap-6 p-2 bg-white rounded-lg">
       <AddData />
       <DeleteData />
       <UpdateData />
+      <Bookings />
     </div>
   );
 };
@@ -20,7 +22,7 @@ const Admin = () => {
     password: "",
   });
 
-  const [h3, setH3] = useState("");
+  const [error, setError] = useState("");
   const [isAuth, setIsAuth] = useState(false); // State to track successful login
 
   const handleInputChange = (e) => {
@@ -31,64 +33,62 @@ const Admin = () => {
   const submit = (e) => {
     e.preventDefault();
     if (formData.username === "sumit" && formData.password === "qwerty") {
-      setH3(""); // Clear error message
+      setError(""); // Clear error message
       setIsAuth(true); // Set successful authentication
     } else {
-      setH3("Incorrect username or password");
+      setError("Incorrect username or password");
       setIsAuth(false); // Reset on incorrect login
     }
   };
 
   return (
-    <>
-      <div className="w-screen flex items-center justify-center bg-w">
-        <div className="w-full max-w-md p-5 rounded-md">
-          {isAuth ? (
-            <SuccessComponent />
-          ) : (
-            <>
-              <form onSubmit={submit} className="space-y-4">
-                <h2 className="text-2xl font-bold my-2 text-center text-gray-700">Login</h2>
-                <label className="block">
-                  <span className="text-gray-600">Username:</span>
-                  <input
-                    type="text"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleInputChange}
-                    className="mt-1 w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    placeholder="Enter the username"
-                    required
-                  />
-                </label>
+    <div className="flex items-center justify-center p-1 min-h-screen bg-white">
+      <div className="w-screen p-2 bg-white flex justify-center">
+        {isAuth ? (
+          <SuccessComponent />
+        ) : (
+          <form onSubmit={submit} className="space-y-6">
+            <h2 className="text-3xl font-bold text-center text-gray-800">Admin Login</h2>
+            <label className="block">
+              <span className="text-gray-700 font-medium">Username</span>
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange}
+                className="mt-1 w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Enter your username"
+                required
+              />
+            </label>
 
-                <label className="block">
-                  <span className="text-gray-600">Password:</span>
-                  <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    className="mt-1 w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    placeholder="Enter the password"
-                    required
-                  />
-                </label>
+            <label className="block">
+              <span className="text-gray-700 font-medium">Password</span>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                className="mt-1 w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Enter your password"
+                required
+              />
+            </label>
 
-                <button
-                  type="submit"
-                  className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                >
-                  Submit
-                </button>
-                <h3 className="text-red-500">{h3}</h3>
-              </form>
-            </>
-          )}
-        </div>
+            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+
+            <button
+              type="submit"
+              className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              Login
+            </button>
+          </form>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 
 export default Admin;
+
